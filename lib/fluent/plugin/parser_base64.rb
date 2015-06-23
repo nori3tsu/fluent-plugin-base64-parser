@@ -12,15 +12,6 @@ module Fluent
       end
 
       def parse(text)
-        if (@base64_encode)
-          puts ::Base64.encode64(text)
-          return super.parse(::Base64.encode64(text))
-        else
-          return super.parse(::Base64.decode64(text))
-        end
-      end
-
-      def parse(text)
         record = {}
         if (@base64_encode)
           record[@message_key] = ::Base64.strict_encode64(text)
