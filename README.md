@@ -24,7 +24,7 @@ You can use it wherever you used the format parameter to parse texts. In the fol
 
 ```
 <source>
-  type tail
+  @type tail
   path /path/to/log
   format base64
   base64_encode true
