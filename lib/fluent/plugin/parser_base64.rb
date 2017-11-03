@@ -1,7 +1,9 @@
+require "fluent/plugin/parser"
+
 module Fluent
-  class TextParser
+  module Plugin
     class Base64Parser < Parser
-      Plugin.register_parser("base64", self)
+      Fluent::Plugin.register_parser("base64", self)
 
       config_param :message_key, :string, :default => 'message'
       config_param :base64_encode, :bool, :default => true
@@ -19,12 +21,8 @@ module Fluent
           record[@message_key] = ::Base64.strict_decode64(text)
         end
 
-        time = @estimate_current_event ? Engine.now : nil
-        if block_given?
-          yield time, record
-        else
-          return time, record
-        end
+        time = @estimate_current_event ? Fluent::Engine.now : nil
+        yield time, record
       end
     end
   end
